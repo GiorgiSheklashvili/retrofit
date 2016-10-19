@@ -10,6 +10,12 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -18,9 +24,11 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -70,7 +78,13 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                resultTextView.setText(response.body().toString());
+                final String result = response.body().toString();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        resultTextView.setText(result);
+                    }
+                });
             }
         });
     }
@@ -168,6 +182,21 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             resultTextView.setText(s);
+        }
+    }
+
+    //ქვეყნების კოლექციის აპარსვა Gson-ის გამოყენებით
+    private void parseJson(String jsonString) {
+        try {
+            JSONObject jsonObject = new JSONObject(jsonString);
+            //ჯერ ვიღებთ json array-ს შედეგიდან
+            String arrayString = jsonObject.getJSONObject("JSON").getJSONObject("RestResponse").getJSONArray("result").toString();
+            //list-ის წამოღება Gson-ის გამოყენებით
+            Type collectionType = new TypeToken<List<Country>>() {
+            }.getType();
+            List<Country> countryList = new Gson().fromJson(arrayString, collectionType);
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 }
