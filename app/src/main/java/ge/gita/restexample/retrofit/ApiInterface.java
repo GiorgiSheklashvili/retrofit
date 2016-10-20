@@ -1,9 +1,8 @@
 package ge.gita.restexample.retrofit;
 
-import ge.gita.restexample.model.MovieResponse;
+import ge.gita.restexample.dataprovider.model.MovieResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**

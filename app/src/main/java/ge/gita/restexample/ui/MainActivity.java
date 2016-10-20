@@ -1,4 +1,4 @@
-package ge.gita.restexample;
+package ge.gita.restexample.ui;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -7,7 +7,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import ge.gita.restexample.model.MovieResponse;
+import ge.gita.restexample.dataprovider.Constants;
+import ge.gita.restexample.R;
+import ge.gita.restexample.dataprovider.model.MovieResponse;
 import ge.gita.restexample.retrofit.ApiClient;
 import ge.gita.restexample.retrofit.ApiInterface;
 import retrofit2.Call;

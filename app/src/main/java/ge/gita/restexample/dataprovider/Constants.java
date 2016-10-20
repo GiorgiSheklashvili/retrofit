@@ -1,4 +1,4 @@
-package ge.gita.restexample;
+package ge.gita.restexample.dataprovider;
 
 /**
  * Created by irakli.managadze on 10/18/2016

@@ -1,4 +1,4 @@
-package ge.gita.restexample.model;
+package ge.gita.restexample.dataprovider.model;
 
 import com.google.gson.annotations.SerializedName;
 
