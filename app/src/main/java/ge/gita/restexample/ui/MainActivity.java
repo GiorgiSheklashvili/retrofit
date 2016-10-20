@@ -19,6 +19,10 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
+    //https://developers.themoviedb.org/3/getting-started
+    //https://square.github.io/retrofit/
+    //https://futurestud.io/tutorials/retrofit-getting-started-and-android-client
+
     private TextView resultTextView;
     private ProgressDialog pd;
 
