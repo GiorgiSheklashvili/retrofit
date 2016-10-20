@@ -3,8 +3,10 @@ package ge.gita.restexample.ui;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import ge.gita.restexample.dataprovider.Constants;
@@ -24,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     //https://futurestud.io/tutorials/retrofit-getting-started-and-android-client
 
     private TextView resultTextView;
+    private EditText searchEditText;
     private ProgressDialog pd;
 
     @Override
@@ -32,11 +35,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         resultTextView = (TextView) findViewById(R.id.tv_result);
+        searchEditText = (EditText) findViewById(R.id.et_search);
     }
 
     public void onGetDataClick(View view) {
+        String searh = searchEditText.getText().toString().trim();
+        if (TextUtils.isEmpty(searh)) {
+            searchEditText.setError("Enter Search Text");
+            return;
+        }
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<MovieResponse> call = apiService.getSearchedMovies(Constants.API_KEY, "war");
+        Call<MovieResponse> call = apiService.getSearchedMovies(Constants.API_KEY, searh);
         call.enqueue(new Callback<MovieResponse>() {
             @Override
             public void onResponse(Call<MovieResponse> call, final Response<MovieResponse> response) {
